@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Montez&display=swap');
+@import "tailwindcss";
+@theme {
+  --font-caveat: "Caveat", sans-serif; 
+  --font-montez: "Montez", sans-serif;
+  --color-glow: oklch(1 0 129);
+}
+
+@layer utilities {
+  .drop-shadow-stack {
+    filter:
+      drop-shadow(0 0 4px rgba(254, 240, 190, 1))   /* kuat */
+      drop-shadow(0 0 20px rgba(254, 240, 190, 0.4)) /* sedang */
+      drop-shadow(0 0 32px rgba(254, 240, 190, 0.6));
+  }
+  .drop-shadow-basic{
+    filter:
+    drop-shadow(0 0 4px rgba(255, 255, 255, 1))  /* kuat */
+    drop-shadow(0 0 20px rgba(255, 255, 255, 0.4)) /* sedang */
+    drop-shadow(0 0 32px rgba(255, 255, 255.0,6));
+  }
+}
