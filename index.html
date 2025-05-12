@@ -10,12 +10,12 @@
       href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Montserrat&family=Sacramento&display=swap"
       rel="stylesheet"
     />
-    <link href="dist/output.css" rel="stylesheet">
+    <link href="dist/output.css" rel="stylesheet" />
     <style>
       .cursor-pointer {
         cursor: pointer;
       }
-      
+
       #firstPage {
         display: flex;
         flex-direction: column;
@@ -25,8 +25,13 @@
         width: 100%;
         padding: 2.5rem 0;
       }
-      
-      #birthdayPage, #thirdPage, #fourPage, #fivePage, #sixPage, #sevenPage {
+
+      #birthdayPage,
+      #thirdPage,
+      #fourPage,
+      #fivePage,
+      #sixPage,
+      #sevenPage {
         display: none;
         height: 100vh;
         width: 100%;
@@ -41,7 +46,7 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: rgba(0,0,0,0.9);
+        background: rgba(0, 0, 0, 0.9);
         color: white;
         z-index: 9999;
         text-align: center;
@@ -49,45 +54,51 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-    }
-    
-    .orientation-warning h1 {
+      }
+
+      .orientation-warning h1 {
         font-size: 1.5rem;
         margin-bottom: 20px;
         max-width: 80%;
         padding: 0 20px;
-    }
-    
-    .orientation-warning img {
+      }
+
+      .orientation-warning img {
         width: 80px;
         height: auto;
         margin: 20px 0;
         animation: rotate 3s infinite;
-    }
+      }
 
-    @keyframes rotate {
-      0% { transform: rotate(0deg); }
-      50% { transform: rotate(90deg); }
-      100% { transform: rotate(0deg); }
-    }
-      
+      @keyframes rotate {
+        0% {
+          transform: rotate(0deg);
+        }
+        50% {
+          transform: rotate(90deg);
+        }
+        100% {
+          transform: rotate(0deg);
+        }
+      }
+
       .navigation-buttons {
         position: absolute;
-        bottom: 0%;  
+        bottom: 0%;
         left: 0;
         right: 0;
         display: flex;
         justify-content: center;
         align-items: center;
       }
-      
+
       .navigation-buttons img {
-        width: 13rem;  
+        width: 13rem;
         height: auto;
-        margin: 0 28rem;  
+        margin: 0 28rem;
         transition: transform 0.2s;
       }
-      
+
       .navigation-buttons img:hover {
         transform: scale(1.2);
       }
@@ -109,26 +120,26 @@
         text-shadow: 0 0 20px white;
         opacity: 1;
       }
-      
+
       #glow {
         position: absolute;
-        left: calc(50% - .1em);
+        left: calc(50% - 0.1em);
         bottom: calc(50% + 6em);
         width: 0.2em;
         height: 0.2em;
         border-radius: 100%;
         opacity: 0.15;
       }
-      
+
       #candle {
         position: absolute;
-        left: calc(50% - .75em);
+        left: calc(50% - 0.75em);
         bottom: 35%;
         width: 1.5em;
         height: 13em;
         overflow: hidden;
       }
-      
+
       #candle::before {
         position: absolute;
         bottom: 0;
@@ -141,7 +152,7 @@
         box-sizing: border-box;
         border: 1px solid #333;
       }
-      
+
       #top {
         position: absolute;
         margin: 0;
@@ -150,30 +161,30 @@
         height: 2em;
         background-color: transparent;
       }
-      
+
       #top #knot {
         position: absolute;
         bottom: 0;
-        left: calc(50% - .05em);
+        left: calc(50% - 0.05em);
         height: 0.5em;
         width: 0.1em;
         background-color: #0f3146;
       }
-      
+
       #top .smoke {
         position: absolute;
         opacity: 0;
         border-radius: 100%;
       }
-      
+
       #top .smoke:nth-child(1) {
         bottom: 0.1em;
-        left: calc(50% - .5em);
+        left: calc(50% - 0.5em);
         height: 0.5em;
         width: 0.5em;
         background-color: silver;
       }
-      
+
       #top .smoke:nth-child(2) {
         bottom: 0.6em;
         left: 50%;
@@ -182,7 +193,7 @@
         background-color: lightgray;
         animation-delay: 0.2s;
       }
-      
+
       #top .smoke:nth-child(3) {
         bottom: 1.1em;
         left: 20%;
@@ -191,7 +202,7 @@
         background-color: whitesmoke;
         animation-delay: 0.3s;
       }
-      
+
       #top #flame {
         position: absolute;
         bottom: 0.15em;
@@ -203,28 +214,28 @@
         transform: rotateY(30deg);
         cursor: pointer;
       }
-      
+
       #top #flame::after {
         position: absolute;
         content: "";
         width: 0.7em;
         height: 0.9em;
         bottom: 10%;
-        left: calc(50% - .35em);
+        left: calc(50% - 0.35em);
         background-color: #ff3200;
         border-radius: 100%;
         animation: burnInner 1.5s ease-in-out infinite;
       }
-      
+
       #top #flame:hover {
         transition: all 0.1s ease-in-out;
         background-color: yellow;
       }
-      
+
       #top #flame:hover::after {
         background-color: red;
       }
-      
+
       @keyframes glow {
         0% {
           box-shadow: 0 0 1.5em 2.2em rgba(255, 246, 162, 0.75);
@@ -236,7 +247,7 @@
           box-shadow: 0 0 1.5em 2.2em rgba(255, 246, 162, 0.75);
         }
       }
-      
+
       @keyframes burn {
         0% {
           height: 1.7em;
@@ -252,7 +263,7 @@
           transform: rotateY(30deg);
         }
       }
-      
+
       @keyframes burnInner {
         0% {
           height: 0.9em;
@@ -267,14 +278,14 @@
           transform: rotateX(0deg);
         }
       }
-      
+
       @keyframes puff {
         100% {
           transform: rotateY(-30deg);
           opacity: 0;
         }
       }
-      
+
       @keyframes puff-bubble {
         0% {
           opacity: 0;
@@ -289,23 +300,23 @@
           transform: scale(0.8, 0.8);
         }
       }
-      
+
       .glow {
         animation: glow 3s ease-in-out infinite;
       }
-      
+
       .burn {
         animation: burn 1.5s ease-in-out infinite;
       }
-      
+
       .puff {
         animation: puff 0.3s ease-in-out forwards;
       }
-      
+
       .puff-bubble {
         animation: puff-bubble 0.75s ease-in-out forwards;
       }
-      
+
       .stripe {
         position: absolute;
         left: -0.25em;
@@ -316,27 +327,27 @@
         border-radius: 100%;
         box-shadow: 1px 1px 0 1px rgba(0, 0, 0, 0.25);
       }
-      
+
       .stripe:nth-child(1) {
         top: 2.7em;
         opacity: 1.4;
       }
-      
+
       .stripe:nth-child(2) {
         top: 4.2em;
         opacity: 0.9;
       }
-      
+
       .stripe:nth-child(3) {
         top: 5.7em;
         opacity: 0.7333333333;
       }
-      
+
       .stripe:nth-child(4) {
         top: 7.2em;
         opacity: 0.65;
       }
-      
+
       .stripe:nth-child(5) {
         top: 8.7em;
         opacity: 0.6;
@@ -366,25 +377,36 @@
     class="bg-gradient-to-t from-[#000120] to-[#240030] min-h-screen text-white font-sans relative overflow-hidden"
   >
     <!-- Audio with autoplay and muted attributes -->
-    <audio id="bgMusic" src="content/sound.mp3" preload="auto" loop autoplay muted></audio>
+    <audio
+      id="bgMusic"
+      src="content/sound.mp3"
+      preload="auto"
+      loop
+      autoplay
+      muted
+    ></audio>
     <!-- <button id="playBtn" class="absolute top-5 left-5 bg-purple-500 hover:bg-purple-700 px-4 py-2 rounded-lg shadow-lg transition z-50">
       Mainkan Musik 🎵
     </button> -->
 
-        <!-- Orientation Warnings -->
-        <div id="orientation-warning" class="orientation-warning">
-          <h1>Please rotate your device to landscape mode for better experience!</h1>
-          <img src="content/rotate-icon.svg" alt="Rotate Device">
-          <p>This website is best viewed in landscape orientation</p>
-      </div>
-  
-      <div id="mobile-warning" class="orientation-warning">
-          <h1>This website is not optimized for mobile devices</h1>
-          <p>Please open on a desktop computer for best experience</p>
-      </div>
+    <!-- Orientation Warnings -->
+    <div id="orientation-warning" class="orientation-warning">
+      <h1>
+        Please rotate your device to landscape mode for better experience!
+      </h1>
+      <img src="content/rotate-icon.svg" alt="Rotate Device" />
+      <p>This website is best viewed in landscape orientation</p>
+    </div>
+
+    <div id="mobile-warning" class="orientation-warning">
+      <h1>This website is not optimized for mobile devices</h1>
+      <p>Please open on a desktop computer for best experience</p>
+    </div>
     <!-- Bagian Awal -->
     <div id="firstPage">
-      <h1 class="font-caveat text-6xl drop-shadow-stack text-center">
+      <h1
+        class="font-caveat title-text drop-shadow-stack text-center mt-0 text-3xl sm:text-5xl xl:text-6xl"
+      >
         I have something for you
       </h1>
 
@@ -396,7 +418,7 @@
         onclick="navigateToPage('birthdayPage'); audio.muted = false;"
       />
 
-      <h1 class="font-montez text-3xl drop-shadow-basic text-center">
+      <h1 class="font-montez text-2xl drop-shadow-basic text-center">
         Tekan hati untuk melanjutkan
       </h1>
 
@@ -418,22 +440,38 @@
     </div>
 
     <!-- Bagian Ucapan Ulang Tahun -->
-    <div id="birthdayPage">
-      <!-- Happy Birthday title moved to top -->
-      <h1 class="absolute top-10 inset-x-0 font-montez text-6xl drop-shadow-basic text-center">Happy Birthday</h1>
-      
-      <!-- Birthday message aligned to left -->
-      <p class="absolute top-44 left-28 max-w-lg font-montez text-4xl text-left drop-shadow-basic">
-        Wihh ada yang ulang tahun nih....<br />
-        Hmm... Ku tidak tahu ingin mengucapkan apa... Aku ucapkan selamat ulang
-        tahun yang ke-17 dan semoga hari ini dan kedepannya apa yang kamu
-        harapkan dan doakan akan segera tercapai...
-      </p>
-      
-      <!-- Cute cat image positioned to the right -->
-      <img src="content/cute-cat.png" alt="Cute Cat" class="absolute top-44 right-28 w-75 h-auto -translate-y-1/2" />
+    <div
+      id="birthdayPage"
+      class="flex flex-col items-center justify-start pt-12"
+    >
+      <h1
+        class="font-montez text-4xl md:text-6xl drop-shadow-basic text-center"
+      >
+        Happy Birthday
+      </h1>
 
-      <!-- Tombol Suara -->
+      <div
+        class="flex flex-col md:flex-row items-center justify-between w-full max-w-6xl gap-8 pb-16 mb-96 mt-12"
+      >
+        <!-- Pesan ulang tahun -->
+        <p
+          class="font-montez text-2xl md:text-4xl drop-shadow-basic text-left max-w-xl"
+        >
+          Wihh ada yang ulang tahun nih....<br />
+          Hmm... Ku tidak tahu ingin mengucapkan apa... Aku ucapkan selamat
+          ulang tahun yang ke-17 dan semoga hari ini dan kedepannya apa yang
+          kamu harapkan dan doakan akan segera tercapai...
+        </p>
+
+        <!-- Gambar kucing -->
+        <img
+          src="content/cute-cat.png"
+          alt="Cute Cat"
+          class="w-60 md:w-72 h-auto"
+        />
+      </div>
+
+      <!-- Tombol suara -->
       <div
         class="absolute bottom-10 right-5 flex items-center gap-4 text-sm font-light"
       >
@@ -449,18 +487,20 @@
         />
       </div>
 
-      <!-- Larger Navigation Buttons dengan class baru -->
-      <div class="navigation-buttons">
+      <!-- Navigasi -->
+      <div
+        class="absolute bottom-0 left-0 right-0 px-5 flex justify-between items-center"
+      >
         <img
           src="content/Expand_left_double.svg"
           alt="Sebelumnya"
-          class="cursor-pointer"
+          class="cursor-pointer h-auto w-60"
           onclick="navigateToPage('firstPage')"
         />
         <img
           src="content/Expand_right_double.svg"
           alt="Selanjutnya"
-          class="cursor-pointer"
+          class="cursor-pointer h-auto w-60"
           onclick="navigateToPage('thirdPage')"
         />
       </div>
@@ -470,17 +510,21 @@
     <div id="thirdPage">
       <!-- Fullscreen wrapper -->
       <div class="relative w-full h-screen overflow-hidden">
-
         <!-- Title at top -->
-        <h1 class="absolute top-10 inset-x-0 text-center font-montez text-6xl drop-shadow-basic">
+        <h1
+          class="absolute top-10 inset-x-0 text-center font-montez text-6xl drop-shadow-basic"
+        >
           Banyak Sekali Yang Terjadi Bukan?
         </h1>
 
         <!-- Centered message -->
-        <p class="absolute top-44 right-[250px] max-w-[850px] font-montez text-6xl text-center drop-shadow-basic">
-          Aku tahu, ada banyak sekali hal yang ingin kamu tanyakan dan ceritakan, tidak apa-apa, aku tahu kamu akan baik-baik saja. Mungkin aku berhutang kata maaf? mungkin... Hehehe
+        <p
+          class="absolute top-44 left-1/2 transform -translate-x-1/2 w-[90%] max-w-[830px] font-montez text-6xl text-center drop-shadow-basic"
+        >
+          Aku tahu, ada banyak sekali hal yang ingin kamu tanyakan dan
+          ceritakan, tidak apa-apa, aku tahu kamu akan baik-baik saja. Mungkin
+          aku berhutang kata maaf? mungkin... Hehehe
         </p>
-
       </div>
 
       <!-- Nama lagu + tombol suara -->
@@ -499,18 +543,20 @@
         />
       </div>
 
-      <!-- Larger Navigation Buttons dengan class baru -->
-      <div class="navigation-buttons">
+      <!-- Navigasi -->
+      <div
+        class="absolute bottom-0 left-0 right-0 px-5 flex justify-between items-center"
+      >
         <img
           src="content/Expand_left_double.svg"
           alt="Sebelumnya"
-          class="cursor-pointer"
+          class="cursor-pointer h-auto w-60"
           onclick="navigateToPage('birthdayPage')"
         />
         <img
           src="content/Expand_right_double.svg"
           alt="Selanjutnya"
-          class="cursor-pointer"
+          class="cursor-pointer h-auto w-60"
           onclick="navigateToPage('fourPage')"
         />
       </div>
@@ -519,27 +565,53 @@
     <!-- Bagian keempat -->
     <div id="fourPage">
       <!-- Happy Birthday title moved to top -->
-      <h1 class="absolute top-10 inset-x-0 font-montez text-6xl drop-shadow-basic text-center">Tentang Apa Yang Kuberikan</h1>
-      
+      <h1
+        class="absolute top-10 inset-x-0 font-montez text-6xl drop-shadow-basic text-center"
+      >
+        Tentang Apa Yang Kuberikan
+      </h1>
+
       <!-- Birthday message aligned to right -->
-      <p class="absolute top-44 right-28 max-w-lg font-montez text-4xl text-right drop-shadow-basic">
-        Aku akan menjelaskanya lebih lanjut nanti, tetapi, aku berharap kamu mau menerima ini, meskipun yaa cuma sederhana dan tidak terlalu waw, tetapi aku harap kamu senang dengan apa yang ku berikan ini
+      <p
+        class="absolute top-44 right-28 max-w-lg font-montez text-4xl text-right drop-shadow-basic"
+      >
+        Aku akan menjelaskanya lebih lanjut nanti, tetapi, aku berharap kamu mau
+        menerima ini, meskipun yaa cuma sederhana dan tidak terlalu waw, tetapi
+        aku harap kamu senang dengan apa yang ku berikan ini
       </p>
-      
+
       <!-- Flip Card that replaces the cat image -->
       <div class="absolute top-80 left-40 transform -translate-y-1/2">
         <div class="group h-80 w-80">
-          <div id="catFlipCard" class="relative h-full w-full rounded-xl shadow-xl transition-all duration-500 [transform-style:preserve-3d] hover:[transform:rotateY(180deg)]">
+          <div
+            id="catFlipCard"
+            class="relative h-full w-full rounded-xl shadow-xl transition-all duration-500 [transform-style:preserve-3d] hover:[transform:rotateY(180deg)]"
+          >
             <!-- Front side with cat image -->
             <div class="absolute inset-0">
-              <img class="h-full w-full rounded-xl object-cover drop-shadow-basic" src="content/gatahu.png" alt="Cute Cat" />
+              <img
+                class="h-full w-full rounded-xl object-cover drop-shadow-basic"
+                src="content/gatahu.png"
+                alt="Cute Cat"
+              />
             </div>
             <!-- Back side with message -->
-            <div class="absolute inset-0 h-full w-full rounded-xl bg-purple-800/90 px-8 text-center text-white [transform:rotateY(180deg)] [backface-visibility:hidden]">
+            <div
+              class="absolute inset-0 h-full w-full rounded-xl bg-purple-800/90 px-8 text-center text-white [transform:rotateY(180deg)] [backface-visibility:hidden]"
+            >
               <div class="flex min-h-full flex-col items-center justify-center">
-                <h2 class="font-caveat text-3xl font-bold mb-4">Hadiah Kecil Untukmu</h2>
-                <p class="font-caveat text-2xl">Ini hanya hadiah sederhana, tapi aku berharap ini bisa membuatmu tersenyum. <br> INI HAECHAN BUKAN?</p>
-                <p class="font-caveat text-2xl"><br> Ku gatahu ini siapa, ku tempel aja xixixi</p>
+                <h2 class="font-caveat text-3xl font-bold mb-4">
+                  Hadiah Kecil Untukmu
+                </h2>
+                <p class="font-caveat text-2xl">
+                  Ini hanya hadiah sederhana, tapi aku berharap ini bisa
+                  membuatmu tersenyum. <br />
+                  INI HAECHAN BUKAN?
+                </p>
+                <p class="font-caveat text-2xl">
+                  <br />
+                  Ku gatahu ini siapa, ku tempel aja xixixi
+                </p>
               </div>
             </div>
           </div>
@@ -547,40 +619,6 @@
       </div>
 
       <!-- Tombol Suara -->
-      <div class="absolute bottom-10 right-5 flex items-center gap-4 text-sm font-light">
-        <span class="font-montez text-xl drop-shadow-basic">Happy Birthday - Piano</span>
-        <img
-          id="soundIcon"
-          src="content/Sound_fill.svg"
-          alt="Sound Icon"
-          class="w-6 h-auto cursor-pointer"
-          onclick="toggleMute()"
-        />
-      </div>
-
-      <!-- Larger Navigation Buttons -->
-      <div class="navigation-buttons">
-        <img
-          src="content/Expand_left_double.svg"
-          alt="Sebelumnya"
-          class="cursor-pointer"
-          onclick="navigateToPage('thirdPage')"
-        />
-        <img
-          src="content/Expand_right_double.svg"
-          alt="Selanjutnya"
-          class="cursor-pointer"
-          onclick="navigateToPage('fivePage')"
-        />
-      </div>
-    </div>
-
-
-    <!-- Bagian kelima (Tambahan) -->
-    <div id="fivePage">
-      <!-- Title at top -->
-      <h1 class="absolute top-56 left-20 inset-x-0 align-middle font-montez text-9xl drop-shadow-basic text-center">Dan yang terakhir...</h1>
-      <!-- Nama lagu + tombol suara -->
       <div
         class="absolute bottom-10 right-5 flex items-center gap-4 text-sm font-light"
       >
@@ -596,18 +634,60 @@
         />
       </div>
 
-      <!-- Larger Navigation Buttons dengan class baru -->
-      <div class="navigation-buttons">
+      <!-- Navigasi -->
+      <div
+        class="absolute bottom-0 left-0 right-0 px-5 flex justify-between items-center"
+      >
         <img
           src="content/Expand_left_double.svg"
           alt="Sebelumnya"
-          class="cursor-pointer"
+          class="cursor-pointer h-auto w-60"
+          onclick="navigateToPage('thirdPage')"
+        />
+        <img
+          src="content/Expand_right_double.svg"
+          alt="Selanjutnya"
+          class="cursor-pointer h-auto w-60"
+          onclick="navigateToPage('fivePage')"
+        />
+      </div>
+    </div>
+
+    <!-- Bagian kelima (Tambahan) -->
+    <div id="fivePage">
+      <!-- Title at top -->
+      <h1
+        class="absolute inset-0 flex items-center justify-center font-montez text-9xl drop-shadow-basic text-center"
+      >
+        Dan yang terakhir...
+      </h1>
+      <!-- Nama lagu + tombol suara -->
+      <div
+        class="absolute bottom-10 right-5 flex items-center gap-4 text-sm font-light"
+      >
+        <img
+          id="soundIcon"
+          src="content/Sound_fill.svg"
+          alt="Sound Icon"
+          class="w-6 h-auto cursor-pointer"
+          onclick="toggleMute()"
+        />
+      </div>
+
+      <!-- Navigasi -->
+      <div
+        class="absolute bottom-0 left-0 right-0 px-5 flex justify-between items-center"
+      >
+        <img
+          src="content/Expand_left_double.svg"
+          alt="Sebelumnya"
+          class="cursor-pointer h-auto w-60"
           onclick="navigateToPage('fourPage')"
         />
         <img
           src="content/Expand_right_double.svg"
           alt="Selanjutnya"
-          class="cursor-pointer"
+          class="cursor-pointer h-auto w-60"
           onclick="navigateToPage('sixPage')"
         />
       </div>
@@ -616,14 +696,15 @@
     <!-- Bagian keenam -->
     <div id="sixPage">
       <!-- Title at top -->
-      <h1 class="absolute top-40 left-72 inset-x-0 w-3xl align-middle font-montez text-9xl drop-shadow-basic text-center">Let's make a wish together</h1>
+      <h1
+        class="absolute inset-0 flex items-center justify-center font-montez text-9xl drop-shadow-basic text-center"
+      >
+        Let's make a wish together
+      </h1>
       <!-- Nama lagu + tombol suara -->
       <div
         class="absolute bottom-10 right-5 flex items-center gap-4 text-sm font-light"
       >
-        <span class="font-montez text-xl drop-shadow-basic"
-          >Happy Birthday - Piano</span
-        >
         <img
           id="soundIcon"
           src="content/Sound_fill.svg"
@@ -634,17 +715,19 @@
       </div>
 
       <!-- Larger Navigation Buttons dengan class baru -->
-      <div class="navigation-buttons">
+      <div
+        class="absolute bottom-0 left-0 right-0 px-5 flex justify-between items-center"
+      >
         <img
           src="content/Expand_left_double.svg"
           alt="Sebelumnya"
-          class="cursor-pointer"
+          class="cursor-pointer h-auto w-60"
           onclick="navigateToPage('fivePage')"
         />
         <img
           src="content/Expand_right_double.svg"
           alt="Selanjutnya"
-          class="cursor-pointer"
+          class="cursor-pointer h-auto w-60"
           onclick="navigateToPage('sevenPage')"
         />
       </div>
@@ -653,7 +736,10 @@
     <!-- Bagian ketujuh (Halaman Lilin) -->
     <div id="sevenPage">
       <!-- Title at top -->
-      <h1 class="candle-title top-0">Make a wish... <br> Dan tiup lilinya...</h1>
+      <h1 class="candle-title top-0 justify-center text-center">
+        Make a wish... <br />
+        Dan tiup lilinya...
+      </h1>
       <div class="glow" id="glow"></div>
       <div id="candle">
         <div class="stripe"></div>
@@ -669,9 +755,11 @@
           <div class="burn" id="flame"></div>
         </div>
       </div>
-      
+
       <!-- Wish text that appears after blowing -->
-      <div id="wish-text">Selamat ulang tahun! Semoga semua harapanmu terkabul</div>
+      <div id="wish-text">
+        Selamat ulang tahun! Semoga semua harapanmu terkabul
+      </div>
 
       <!-- Nama lagu + tombol suara -->
       <div
@@ -697,7 +785,7 @@
           class="cursor-pointer"
           onclick="navigateToPage('sixPage')"
         />
-      </div>
+      </div>  
     </div>
   </body>
 </html>
