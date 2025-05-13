@@ -736,7 +736,7 @@
     <!-- Bagian ketujuh (Halaman Lilin) -->
     <div id="sevenPage">
       <!-- Title at top -->
-      <h1 class="candle-title top-0 justify-center text-center">
+      <h1 class="candle-title top-0 justify-center text-center pr-12">
         Make a wish... <br />
         Dan tiup lilinya...
       </h1>
@@ -777,15 +777,33 @@
         />
       </div>
 
-      <!-- Larger Navigation Buttons dengan class baru -->
-      <div class="navigation-buttons buttom-0">
-        <img
-          src="content/Expand_left_double.svg"
-          alt="Sebelumnya"
-          class="cursor-pointer"
-          onclick="navigateToPage('sixPage')"
-        />
-      </div>  
+<div
+  id="sevenNav"
+  class="absolute bottom-0 left-0 right-0 px-5 w-full flex justify-between items-center" 
+  style="display: none;"
+>
+  <!-- Tombol ke halaman sebelumnya -->
+  <img
+    src="content/Expand_left_double.svg"
+    alt="Sebelumnya"
+    class="cursor-pointer h-auto w-60"
+    onclick="navigateToPage('sixPage')"
+  />
+  <!-- Tombol ke halaman selanjutnya (eightPage) -->
+  <img
+    src="content/Expand_right_double.svg"
+    alt="Selanjutnya"
+    class="cursor-pointer h-auto w-60"
+    onclick="navigateToPage('eightPage')"
+  />
+</div>
     </div>
+    
+    <!-- Bagian kedelapan -->
+<div id="eightPage">
+  <h1 class="text-center text-5xl font-bold mt-10">Halaman Delapan 🎉</h1>
+  <!-- Isi halaman kamu di sini -->
+</div>
+
   </body>
 </html>

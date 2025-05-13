@@ -1,44 +1,44 @@
-  // Initialize audio player
-  const audio = document.getElementById("bgMusic");
-  let currentPage = "firstPage";
-  let isAudioReady = false;
+// Initialize audio player
+const audio = document.getElementById("bgMusic");
+let currentPage = "firstPage";
+let isAudioReady = false;
 
-  // Check orientation on page load
-  document.addEventListener('DOMContentLoaded', checkOrientation);
+// Check orientation on page load
+document.addEventListener('DOMContentLoaded', checkOrientation);
+
+// Device orientation handling
+function checkOrientation() {
+  const warning = document.getElementById('orientation-warning');
+  const mobileWarning = document.getElementById('mobile-warning');
+  const contentWrapper = document.getElementById('content-wrapper');
   
-  // Device orientation handling
-  function checkOrientation() {
-    const warning = document.getElementById('orientation-warning');
-    const mobileWarning = document.getElementById('mobile-warning');
-    const contentWrapper = document.getElementById('content-wrapper');
-    
-    // Check if mobile based on user agent
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    
-    // Detect orientation based on aspect ratio
-    const isPortrait = window.innerHeight > window.innerWidth;
-    
-    if (isMobile && window.innerWidth < 768) {
-      if (warning) warning.style.display = 'none';
-      if (mobileWarning) mobileWarning.style.display = 'flex';
-      if (contentWrapper) contentWrapper.style.display = 'none';
-    } else if (isPortrait) {
-      if (warning) warning.style.display = 'flex';
-      if (mobileWarning) mobileWarning.style.display = 'none';
-      if (contentWrapper) contentWrapper.style.display = 'none';
-    } else {
-      if (warning) warning.style.display = 'none';
-      if (mobileWarning) mobileWarning.style.display = 'none';
-      if (contentWrapper) contentWrapper.style.display = 'block';
-    }
+  // Check if mobile based on user agent
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  
+  // Detect orientation based on aspect ratio
+  const isPortrait = window.innerHeight > window.innerWidth;
+  
+  if (isMobile && window.innerWidth < 768) {
+    if (warning) warning.style.display = 'none';
+    if (mobileWarning) mobileWarning.style.display = 'flex';
+    if (contentWrapper) contentWrapper.style.display = 'none';
+  } else if (isPortrait) {
+    if (warning) warning.style.display = 'flex';
+    if (mobileWarning) mobileWarning.style.display = 'none';
+    if (contentWrapper) contentWrapper.style.display = 'none';
+  } else {
+    if (warning) warning.style.display = 'none';
+    if (mobileWarning) mobileWarning.style.display = 'none';
+    if (contentWrapper) contentWrapper.style.display = 'block';
   }
+}
 
-  // Add resize listener
-  window.addEventListener('resize', checkOrientation);
+// Add resize listener
+window.addEventListener('resize', checkOrientation);
 
 // Set audio properties for autoplay attempt
 audio.autoplay = true;
-audio.loop = true; // Pastikan audio berulang ketika mencapai akhir
+audio.loop = true; 
 audio.muted = true; // Initially muted to help with autoplay policies
 
 // Toggle Mute function
@@ -96,8 +96,20 @@ function playFromSecond(second) {
     .catch(err => console.warn("⚠️ Audio play gagal:", err));
 }
 
+// Flag to track if user is on candle page and if candle has been blown
+let candleBlown = false;
+let onCandlePage = false;
+
 // Fungsi Navigasi Halaman
 function navigateToPage(pageId) {
+  // Special case for sevenPage - prevent navigation FROM it if candle not blown yet
+  if (currentPage === "sevenPage" && !candleBlown && pageId !== "sevenPage") {
+    // If on sevenPage and trying to navigate away before blowing candle
+    alert("Tiup lilin dulu ya!");
+    // Stay on current page
+    return;
+  }
+
   // Sembunyikan semua halaman terlebih dahulu
   document.getElementById("firstPage").style.display = "none";
   document.getElementById("birthdayPage").style.display = "none"; 
@@ -106,12 +118,16 @@ function navigateToPage(pageId) {
   document.getElementById("fivePage").style.display = "none";
   document.getElementById("sixPage").style.display = "none";
   document.getElementById("sevenPage").style.display = "none";
-  
+  document.getElementById("eightPage").style.display = "none"; 
+
   // Tampilkan halaman yang dipilih
   document.getElementById(pageId).style.display = "flex";
   
   // Perbarui halaman saat ini
   currentPage = pageId;
+  
+  // Track if we're on the candle page
+  onCandlePage = (pageId === "sevenPage");
 }
 
 // Try to play on any user interaction with the document
@@ -134,6 +150,18 @@ document.addEventListener("click", function() {
 
 // Keyboard navigation
 document.addEventListener("keydown", (e) => {
+  // Only block keyboard navigation if on candle page and candle not blown
+  if (currentPage === "sevenPage" && !candleBlown) {
+    // Still allow navigating TO the candle page
+    if (e.key === "ArrowLeft") {
+      if (currentPage === "sevenPage") {
+        navigateToPage("sixPage"); // Allow going back from candle page
+        return;
+      }
+    }
+    return; // Block other navigation on candle page until blown
+  }
+  
   if (e.key === "ArrowLeft") {
     if (currentPage === "birthdayPage") {
       navigateToPage("firstPage");
@@ -147,6 +175,8 @@ document.addEventListener("keydown", (e) => {
       navigateToPage("fivePage");
     } else if (currentPage === "sevenPage") {
       navigateToPage("sixPage");
+    } else if (currentPage === "eightPage") {
+      navigateToPage("sevenPage");
     }
   } else if (e.key === "ArrowRight") {
     if (currentPage === "firstPage") {
@@ -161,11 +191,13 @@ document.addEventListener("keydown", (e) => {
       navigateToPage("sixPage");
     } else if (currentPage === "sixPage") {
       navigateToPage("sevenPage");
+    } else if (currentPage === "sevenPage") { 
+      navigateToPage("eightPage");
     }
   }
 });
 
-// Document ready function
+// Document ready function 
 document.addEventListener("DOMContentLoaded", function() {
   // This is another attempt to make autoplay work
   attemptAutoplay();
@@ -180,27 +212,107 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   // Set up the candle functionality with jQuery
-  $(function () {
-    var flame = $("#flame");
-    var candleTitle = $(".candle-title");
-    var wishText = $("#wish-text");
+  if (typeof $ !== 'undefined') {
+    $(function() {
+      var flame = $("#flame");
+      var candleTitle = $(".candle-title");
+      var wishText = $("#wish-text");
+      var sevenNav = $("#sevenNav");
 
-    flame.on({
-      click: function () {
+      // Make sure the navigation is hidden initially
+      if (sevenNav.length) {
+        sevenNav.hide();
+      }
+
+      flame.on("click", function() {
+        // Set candle blown flag
+        candleBlown = true;
+        
         flame.removeClass("burn").addClass("puff");
-        $(".smoke").each(function () {
+
+        $(".smoke").each(function() {
           $(this).addClass("puff-bubble");
         });
+
         $("#glow").remove();
         candleTitle.hide();
-        wishText.delay(750).fadeIn(300);
-        $("#candle").animate(
-          {
-            opacity: ".5"
-          },
-          100
-        );
+
+        // Show wish text with fade in effect
+        wishText.hide().delay(750).fadeIn(500);
+        
+        // Properly show navigation with fade in
+        setTimeout(function() {
+          // Make sure to display as flex, not just show
+          sevenNav.css('display', 'flex').hide().fadeIn(500);
+        }, 1500);
+
+        $("#candle").animate({
+          opacity: ".5"
+        }, 100);
+      });
+
+    });
+  } else {
+    // Fallback for non-jQuery - using vanilla JS
+    document.addEventListener('DOMContentLoaded', function() {
+      var flame = document.getElementById('flame');
+      var candleTitle = document.querySelector('.candle-title');
+      var wishText = document.getElementById('wish-text');
+      var sevenNav = document.getElementById('sevenNav');
+      
+      // Make sure the navigation is hidden initially
+      if (sevenNav) {
+        sevenNav.style.display = 'none';
+      }
+      
+      if (flame) {
+        flame.addEventListener('click', function() {
+          // Set candle blown flag
+          candleBlown = true;
+          
+          flame.classList.remove('burn');
+          flame.classList.add('puff');
+          
+          document.querySelectorAll('.smoke').forEach(function(smoke) {
+            smoke.classList.add('puff-bubble');
+          });
+          
+          var glow = document.getElementById('glow');
+          if (glow) glow.remove();
+          
+          if (candleTitle) candleTitle.style.display = 'none';
+          
+          if (wishText) {
+            wishText.style.display = 'none';
+            setTimeout(function() {
+              wishText.style.display = 'block';
+              wishText.style.opacity = '1';
+            }, 750);
+          }
+          
+          if (sevenNav) {
+            setTimeout(function() {
+              // Fade in effect for vanilla JS
+              sevenNav.style.display = 'flex';
+              sevenNav.style.justifyContent = 'space-between';
+              sevenNav.style.width = '100%';
+              sevenNav.style.opacity = '0';
+              var opacity = 0;
+              var interval = setInterval(function() {
+                if (opacity < 1) {
+                  opacity += 0.1;
+                  sevenNav.style.opacity = opacity;
+                } else {
+                  clearInterval(interval);
+                }
+              }, 50);
+            }, 1500);
+          }
+          
+          var candle = document.getElementById('candle');
+          if (candle) candle.style.opacity = '0.5';
+        });
       }
     });
-  });
+  }
 });
