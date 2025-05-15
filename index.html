@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Something</title>
+    <link rel="icon" href="content\cute-cat.png" type="image/png"">
     <link href="./src/output.css" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <link
@@ -799,11 +800,45 @@
 </div>
     </div>
     
-    <!-- Bagian kedelapan -->
-<div id="eightPage">
-  <h1 class="text-center text-5xl font-bold mt-10">Halaman Delapan 🎉</h1>
-  <!-- Isi halaman kamu di sini -->
+
+<div id="eightPage" style="display: none; height: 100vh; width: 100%; position: relative;">
+  <!-- YouTube Video Container -->
+  <div class="absolute inset-0 flex items-center justify-center">
+    <div class="w-3/4 h-3/4 max-w-4xl">
+      <iframe 
+        class="w-full h-full"
+        src="https://www.youtube.com/embed/0N4UFwsm2t0?autoplay=1" 
+        title="Birthday Video" 
+        frameborder="0" 
+        allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+        allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+  
+
+  <div class="absolute bottom-10 right-5 flex items-center gap-4 text-sm font-light" style="display:none;">
+    <span class="font-montez text-xl drop-shadow-basic">Happy Birthday - Piano</span>
+    <img
+      id="soundIcon"
+      src="content/sound_mute.svg"
+      alt="Sound Icon"
+      class="w-6 h-auto cursor-pointer"
+      onclick="toggleMute()"
+    />
+  </div>
+
+  <!-- Navigation buttons -->
+  <div class="absolute bottom-0 left-0 right-0 px-5 flex justify-between items-center">
+    <img
+      src="content/Expand_left_double.svg"
+      alt="Sebelumnya"
+      class="cursor-pointer h-auto w-60"
+      onclick="navigateToPage('sevenPage')"
+    />
+  </div>
 </div>
+
 
   </body>
 </html>

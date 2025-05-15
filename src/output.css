@@ -15,6 +15,8 @@
     --spacing: 0.25rem;
     --container-lg: 32rem;
     --container-xl: 36rem;
+    --container-3xl: 48rem;
+    --container-4xl: 56rem;
     --container-6xl: 72rem;
     --text-sm: 0.875rem;
     --text-sm--line-height: calc(1.25 / 0.875);
@@ -199,6 +201,9 @@
   .absolute {
     position: absolute;
   }
+  .fixed {
+    position: fixed;
+  }
   .relative {
     position: relative;
   }
@@ -229,23 +234,17 @@
   .right-5 {
     right: calc(var(--spacing) * 5);
   }
-  .right-12 {
-    right: calc(var(--spacing) * 12);
-  }
   .right-28 {
     right: calc(var(--spacing) * 28);
-  }
-  .right-36 {
-    right: calc(var(--spacing) * 36);
-  }
-  .right-72 {
-    right: calc(var(--spacing) * 72);
   }
   .bottom-0 {
     bottom: calc(var(--spacing) * 0);
   }
   .bottom-10 {
     bottom: calc(var(--spacing) * 10);
+  }
+  .bottom-32 {
+    bottom: calc(var(--spacing) * 32);
   }
   .left-0 {
     left: calc(var(--spacing) * 0);
@@ -265,20 +264,14 @@
   .z-50 {
     z-index: 50;
   }
+  .mx-auto {
+    margin-inline: auto;
+  }
   .mt-0 {
     margin-top: calc(var(--spacing) * 0);
   }
-  .mt-10 {
-    margin-top: calc(var(--spacing) * 10);
-  }
   .mt-12 {
     margin-top: calc(var(--spacing) * 12);
-  }
-  .mr-28 {
-    margin-right: calc(var(--spacing) * 28);
-  }
-  .mr-72 {
-    margin-right: calc(var(--spacing) * 72);
   }
   .mb-4 {
     margin-bottom: calc(var(--spacing) * 4);
@@ -298,6 +291,12 @@
   .table {
     display: table;
   }
+  .h-3 {
+    height: calc(var(--spacing) * 3);
+  }
+  .h-3\/4 {
+    height: calc(3/4 * 100%);
+  }
   .h-80 {
     height: calc(var(--spacing) * 80);
   }
@@ -316,6 +315,12 @@
   .min-h-screen {
     min-height: 100vh;
   }
+  .w-3 {
+    width: calc(var(--spacing) * 3);
+  }
+  .w-3\/4 {
+    width: calc(3/4 * 100%);
+  }
   .w-6 {
     width: calc(var(--spacing) * 6);
   }
@@ -333,6 +338,12 @@
   }
   .w-full {
     width: 100%;
+  }
+  .max-w-3xl {
+    max-width: var(--container-3xl);
+  }
+  .max-w-4xl {
+    max-width: var(--container-4xl);
   }
   .max-w-6xl {
     max-width: var(--container-6xl);
@@ -453,14 +464,8 @@
   .pt-12 {
     padding-top: calc(var(--spacing) * 12);
   }
-  .pr-10 {
-    padding-right: calc(var(--spacing) * 10);
-  }
   .pr-12 {
     padding-right: calc(var(--spacing) * 12);
-  }
-  .pr-36 {
-    padding-right: calc(var(--spacing) * 36);
   }
   .pb-16 {
     padding-bottom: calc(var(--spacing) * 16);
@@ -494,10 +499,6 @@
   .text-4xl {
     font-size: var(--text-4xl);
     line-height: var(--tw-leading, var(--text-4xl--line-height));
-  }
-  .text-5xl {
-    font-size: var(--text-5xl);
-    line-height: var(--tw-leading, var(--text-5xl--line-height));
   }
   .text-6xl {
     font-size: var(--text-6xl);

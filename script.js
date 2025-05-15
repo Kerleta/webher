@@ -2,6 +2,14 @@
 const audio = document.getElementById("bgMusic");
 let currentPage = "firstPage";
 let isAudioReady = false;
+let isTransitioning = false; // Flag to prevent transition interruption
+
+// Flag to track if user is on candle page and if candle has been blown
+let candleBlown = false;
+let onCandlePage = false;
+
+// Transition duration in milliseconds
+const TRANSITION_DURATION = 800;
 
 // Check orientation on page load
 document.addEventListener('DOMContentLoaded', checkOrientation);
@@ -55,7 +63,7 @@ function toggleMute() {
   });
 }
 
-// Audio siap diputar
+// Audio ready to play
 audio.addEventListener("canplaythrough", () => {
   isAudioReady = true;
   // Try autoplay when ready
@@ -86,7 +94,7 @@ function attemptAutoplay() {
     });
 }
 
-// Fungsi untuk memainkan dari detik tertentu
+// Function to play from specific second
 function playFromSecond(second) {
   if (!isAudioReady) return;
   
@@ -96,12 +104,35 @@ function playFromSecond(second) {
     .catch(err => console.warn("⚠️ Audio play gagal:", err));
 }
 
-// Flag to track if user is on candle page and if candle has been blown
-let candleBlown = false;
-let onCandlePage = false;
+// Create overlay for transition effects
+function createTransitionOverlay() {
+  // Check if overlay already exists
+  let overlay = document.getElementById('transition-overlay');
+  
+  if (!overlay) {
+    overlay = document.createElement('div');
+    overlay.id = 'transition-overlay';
+    overlay.style.position = 'fixed';
+    overlay.style.top = '0';
+    overlay.style.left = '0';
+    overlay.style.width = '100%';
+    overlay.style.height = '100%';
+    overlay.style.backgroundColor = 'black';
+    overlay.style.opacity = '0';
+    overlay.style.zIndex = '9999';
+    overlay.style.transition = `opacity ${TRANSITION_DURATION}ms ease`;
+    overlay.style.pointerEvents = 'none'; // Allows clicking through
+    document.body.appendChild(overlay);
+  }
+  
+  return overlay;
+}
 
-// Fungsi Navigasi Halaman
+// Page Navigation Function with transitions
 function navigateToPage(pageId) {
+  // If already transitioning, ignore the request
+  if (isTransitioning) return;
+  
   // Special case for sevenPage - prevent navigation FROM it if candle not blown yet
   if (currentPage === "sevenPage" && !candleBlown && pageId !== "sevenPage") {
     // If on sevenPage and trying to navigate away before blowing candle
@@ -109,25 +140,69 @@ function navigateToPage(pageId) {
     // Stay on current page
     return;
   }
-
-  // Sembunyikan semua halaman terlebih dahulu
-  document.getElementById("firstPage").style.display = "none";
-  document.getElementById("birthdayPage").style.display = "none"; 
-  document.getElementById("thirdPage").style.display = "none";
-  document.getElementById("fourPage").style.display = "none";
-  document.getElementById("fivePage").style.display = "none";
-  document.getElementById("sixPage").style.display = "none";
-  document.getElementById("sevenPage").style.display = "none";
-  document.getElementById("eightPage").style.display = "none"; 
-
-  // Tampilkan halaman yang dipilih
-  document.getElementById(pageId).style.display = "flex";
   
-  // Perbarui halaman saat ini
-  currentPage = pageId;
+  // Set transitioning flag to prevent multiple transitions
+  isTransitioning = true;
   
-  // Track if we're on the candle page
-  onCandlePage = (pageId === "sevenPage");
+  // Create or get the transition overlay
+  const overlay = createTransitionOverlay();
+
+  // Get all page elements
+  const allPages = [
+    document.getElementById("firstPage"),
+    document.getElementById("birthdayPage"),
+    document.getElementById("thirdPage"),
+    document.getElementById("fourPage"),
+    document.getElementById("fivePage"),
+    document.getElementById("sixPage"),
+    document.getElementById("sevenPage"),
+    document.getElementById("eightPage")
+  ];
+  
+  // Fade out current view (fade in the black overlay)
+  overlay.style.opacity = '1';
+  
+  // Wait for fade out to complete
+  setTimeout(() => {
+    // Hide all pages
+    allPages.forEach(page => {
+      if (page) page.style.display = 'none';
+    });
+    
+    // Show selected page with flex display
+    const targetPage = document.getElementById(pageId);
+    if (targetPage) targetPage.style.display = 'flex';
+    
+    // Update current page
+    currentPage = pageId;
+    
+    // Track if we're on the candle page
+    onCandlePage = (pageId === "sevenPage");
+
+    // Special handling for eightPage
+    if (pageId === "eightPage") {
+      if (audio) {
+        audio.pause(); // Completely stop the audio
+        audio.muted = true;
+        // Update all sound icons to show muted state
+        const soundIcons = document.querySelectorAll('[id^="soundIcon"]');
+        soundIcons.forEach(icon => {
+          if (icon) icon.src = "content/sound_mute.svg";
+        });
+      }
+    }
+    
+    // Short delay to ensure the page is ready before fading back in
+    setTimeout(() => {
+      // Fade in new page (fade out the black overlay)
+      overlay.style.opacity = '0';
+      
+      // Wait for fade in to complete before allowing new transitions
+      setTimeout(() => {
+        isTransitioning = false;
+      }, TRANSITION_DURATION);
+    }, 50);
+  }, TRANSITION_DURATION);
 }
 
 // Try to play on any user interaction with the document
@@ -148,8 +223,11 @@ document.addEventListener("click", function() {
   }
 }, {once: true}); // Only trigger once
 
-// Keyboard navigation
+// Keyboard navigation with transition support
 document.addEventListener("keydown", (e) => {
+  // If already transitioning, ignore keyboard input
+  if (isTransitioning) return;
+  
   // Only block keyboard navigation if on candle page and candle not blown
   if (currentPage === "sevenPage" && !candleBlown) {
     // Still allow navigating TO the candle page
@@ -199,6 +277,9 @@ document.addEventListener("keydown", (e) => {
 
 // Document ready function 
 document.addEventListener("DOMContentLoaded", function() {
+  // Create the transition overlay on page load
+  createTransitionOverlay();
+  
   // This is another attempt to make autoplay work
   attemptAutoplay();
 
@@ -211,7 +292,8 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
-  // Set up the candle functionality with jQuery
+  // Set up the candle functionality
+  // First try with jQuery if available
   if (typeof $ !== 'undefined') {
     $(function() {
       var flame = $("#flame");
@@ -250,69 +332,66 @@ document.addEventListener("DOMContentLoaded", function() {
           opacity: ".5"
         }, 100);
       });
-
     });
   } else {
     // Fallback for non-jQuery - using vanilla JS
-    document.addEventListener('DOMContentLoaded', function() {
-      var flame = document.getElementById('flame');
-      var candleTitle = document.querySelector('.candle-title');
-      var wishText = document.getElementById('wish-text');
-      var sevenNav = document.getElementById('sevenNav');
-      
-      // Make sure the navigation is hidden initially
-      if (sevenNav) {
-        sevenNav.style.display = 'none';
-      }
-      
-      if (flame) {
-        flame.addEventListener('click', function() {
-          // Set candle blown flag
-          candleBlown = true;
-          
-          flame.classList.remove('burn');
-          flame.classList.add('puff');
-          
-          document.querySelectorAll('.smoke').forEach(function(smoke) {
-            smoke.classList.add('puff-bubble');
-          });
-          
-          var glow = document.getElementById('glow');
-          if (glow) glow.remove();
-          
-          if (candleTitle) candleTitle.style.display = 'none';
-          
-          if (wishText) {
-            wishText.style.display = 'none';
-            setTimeout(function() {
-              wishText.style.display = 'block';
-              wishText.style.opacity = '1';
-            }, 750);
-          }
-          
-          if (sevenNav) {
-            setTimeout(function() {
-              // Fade in effect for vanilla JS
-              sevenNav.style.display = 'flex';
-              sevenNav.style.justifyContent = 'space-between';
-              sevenNav.style.width = '100%';
-              sevenNav.style.opacity = '0';
-              var opacity = 0;
-              var interval = setInterval(function() {
-                if (opacity < 1) {
-                  opacity += 0.1;
-                  sevenNav.style.opacity = opacity;
-                } else {
-                  clearInterval(interval);
-                }
-              }, 50);
-            }, 1500);
-          }
-          
-          var candle = document.getElementById('candle');
-          if (candle) candle.style.opacity = '0.5';
+    var flame = document.getElementById('flame');
+    var candleTitle = document.querySelector('.candle-title');
+    var wishText = document.getElementById('wish-text');
+    var sevenNav = document.getElementById('sevenNav');
+    
+    // Make sure the navigation is hidden initially
+    if (sevenNav) {
+      sevenNav.style.display = 'none';
+    }
+    
+    if (flame) {
+      flame.addEventListener('click', function() {
+        // Set candle blown flag
+        candleBlown = true;
+        
+        flame.classList.remove('burn');
+        flame.classList.add('puff');
+        
+        document.querySelectorAll('.smoke').forEach(function(smoke) {
+          smoke.classList.add('puff-bubble');
         });
-      }
-    });
+        
+        var glow = document.getElementById('glow');
+        if (glow) glow.remove();
+        
+        if (candleTitle) candleTitle.style.display = 'none';
+        
+        if (wishText) {
+          wishText.style.display = 'none';
+          setTimeout(function() {
+            wishText.style.display = 'block';
+            wishText.style.opacity = '1';
+          }, 750);
+        }
+        
+        if (sevenNav) {
+          setTimeout(function() {
+            // Fade in effect for vanilla JS
+            sevenNav.style.display = 'flex';
+            sevenNav.style.justifyContent = 'space-between';
+            sevenNav.style.width = '100%';
+            sevenNav.style.opacity = '0';
+            var opacity = 0;
+            var interval = setInterval(function() {
+              if (opacity < 1) {
+                opacity += 0.1;
+                sevenNav.style.opacity = opacity;
+              } else {
+                clearInterval(interval);
+              }
+            }, 50);
+          }, 1500);
+        }
+        
+        var candle = document.getElementById('candle');
+        if (candle) candle.style.opacity = '0.5';
+      });
+    }
   }
 });
